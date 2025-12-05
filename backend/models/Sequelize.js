@@ -6,15 +6,9 @@ require("dotenv").config();
 const pg = require("pg");
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
+const sequelize = new Sequelize("postgres://jdm:123@172.16.112.193:5432/kiots", {
 	dialect: "postgres",
 	dialectModule: pg,
-	dialectOptions: {
-		ssl: {
-			require: true,
-			rejectUnauthorized: false,
-		},
-	},
 });
 
 module.exports = sequelize;

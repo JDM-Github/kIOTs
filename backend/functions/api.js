@@ -32,9 +32,19 @@ if (DEVELOPMENT) {
 // -------------------------------------------------------------------------------
 // ALL ROUTES
 // -------------------------------------------------------------------------------
-router.get("/reset", async (req, res) => {
-	await sequelize.sync({ force: true });
-	res.send("Database reset successful.");
+// router.get("/reset", async (req, res) => {
+// 	await sequelize.sync({ force: true });
+// 	res.send("Database reset successful.");
+// });
+router.get("/test", async (req, res) => {
+	try {
+		await sequelize.authenticate(); 
+		console.log("Sequelize connection has been established successfully.");
+		res.json("Database connection is successful!");
+	} catch (error) {
+		console.error("Unable to connect to the database:", error);
+		res.status(500).json({ error: "Failed to connect to the database." });
+	}
 });
 router.use("/", routes);
 
